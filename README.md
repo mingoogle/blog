@@ -1,2 +1,2 @@
-# blog
-blog
+# blog-javascript
+https://mingoogle.tistory.com/
