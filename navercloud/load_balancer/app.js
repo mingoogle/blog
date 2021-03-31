@@ -1,6 +1,8 @@
 const express =require('express');
 const app = express();
 let port = 3000;
+var os = require("os");
+var hostname = os.hostname();
 
 app.get('/', function (req,res){
 
@@ -24,9 +26,10 @@ app.get('/', function (req,res){
         }
     }
 
-    console.log("### getPrimes => " ,getPrimes.toString())
+   // console.log("### getPrimes => " ,getPrimes.toString())
+    console.log("### getPrimes.length => " ,getPrimes.length)
 
-    res.send('100,000의 소수 개수는 : '+getPrimes.length)
+    res.send('<br> 호스트정보 : '+ hostname + '<br><br> 100,000의 소수 개수는 : '+getPrimes.length)
 });
 
 app.listen(port, function (){

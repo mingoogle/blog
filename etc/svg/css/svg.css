@@ -1,0 +1,21 @@
+.png_box, .svg_box{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.size-m{
+    width: 100px;
+}
+.size-l{
+    width: 200px;
+}
+
+.svg_item {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-orange{
+    filter: invert(46%) sepia(98%) saturate(493%) hue-rotate(333deg) brightness(94%) contrast(94%);
+}
