@@ -1,0 +1,62 @@
+<!--
+    AJAX를 활용해보기
+    -> 서버사이드렌더링을 하게되면 변경이 필요하지 않는 부분까지도 다시 서버측에 재요청을 하고 또 모든 부분에 대하여 렌더링을 하기때문에
+       통신비용 과 성능이 안좋아질 수 있어
+       그래서 필요한 부분만 가져오기 위해서 ajax를 사용한다. 즉, 서버사이드렌더링이 아닌 동적으로 필요한 부분만 데이터를 가져온다.
+    *참고*
+    일반적인 상태코드
+    100번대는 정보성 상태 ( 서버가 승인중이라던지 데이터가 일부보내졋다던지)
+    200번대 성공의미
+    300번대 리다이렉션
+    400번대 클라이언트에러
+    500번대 서버에러
+
+    *실습*
+    1. ajax를 이용하여 GET방식요청
+    2. ajax를 이용하여 POST방식요청 => HTML의 form태그를 동적으로 제어할 수 있는 FormData를 활용
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function (){ // xhr.send()를 하고나서 요청에 대한 콜백부분을 여기서 받는다.
+        if(xhr.readyState === xhr.DONE){ // 요청에 대한 응답이 완료되면 xhr.DONE이 됨
+            if(xhr.status == 200 || xhr.status == 201){ // 서버측에서 상태코드를 보내니 100,200,300,400,500 이걸로 정상적으로 응답되었는지 확인
+                console.log('요청성공!')
+                console.log(xhr.responseText)
+            }else{
+                console.log('에러발생!')
+                console.error(xhr.responseText)
+            }
+        }
+    }
+
+    // CORS에러 : 브라우저간 데이터 요청 시 서로 다른 도메인에 요청하게되면 보안상문제로 브라우저에서 경고에러 발생
+    // 해결방법 => 서버측에서 CORS허용.
+    xhr.open('GET', 'https://www.naver.com'); // 셋팅
+    xhr.send(); // 요청
+
+
+    /* FormData를 이용하여 POST해보기 */
+    console.log('post요청')
+    var formData = new FormData();
+    formData.append('name', 'mingoogle');
+    formData.append('name1', 'mingoogle'); // key값 추가
+    formData.delete('name1'); // key값 삭제
+    formData.has('name1'); // key값이 존재하는지
+    formData.get('name'); // value값 가져오기
+    formData.set('blog', 'https://mingoogle.tistory.com/'); // 현재 키값을 수정
+
+    xhr.open('POST', 'https://www.naver.com'+encodeURIComponent('한글url이라면인코딩해서')+'/111'); // 셋팅 => https://www.naver.com/한글url이라면인코딩해서/111
+    xhr.send(formData);  // 요청 시 formData객체를 함께 보낸다.
+
+
+</script>
+</html>
